@@ -1,0 +1,89 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+
+<dom-module id="bus-schedule">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      ul {
+        list-style-type: none;
+      }      
+    </style>
+    <ul>
+      <template is="dom-repeat" items="[[schedule]]">
+        <li>[[item]]</li>
+      </template>
+    </ul>
+  </template>
+
+  <script>
+    /**
+     * `bus-schedule`
+     * Shows the next bus departure time
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    const MINUTE_IN_MILLISECONDS = 60000;
+
+    class BusSchedule extends Polymer.Element {
+      constructor() {
+        super();
+        this.interval = null;
+        this.currentTime = null;
+      }
+
+      static get is() { return 'bus-schedule'; }
+      static get properties() {
+        return {
+          schedule: {
+            type: Array,
+            value: function() {
+              return [
+                "7:30am",
+                "8:30am",
+                "10:00am",
+                "12:30pm",
+                "2:00pm",
+                "3:00pm",
+                "3:30pm",
+                "4:00pm",
+                "4:30pm",
+                "5:00pm",
+                "5:30pm",
+                "6:00pm",
+                "6:20pm",
+                "6:50pm",
+                "8:00pm",
+                "9:00pm",
+                "10:00pm",
+                "12:15am",  
+              ]; 
+            }
+          },
+          currentTime: {
+            type: Date,
+          }
+        };
+      }
+ 
+      // Callbacks
+      connectedCallback() {
+        super.connectedCallback();
+        this.updateTime(); 
+        this.interval = setInterval(this.updateTime.bind(this), MINUTE_IN_MILLISECONDS);
+      }
+      
+      updateTime() {
+        this.currentTime = new Date();   
+        console.log(this.currentTime);
+      }
+    }
+
+    window.customElements.define(BusSchedule.is, BusSchedule);
+  </script>
+</dom-module>

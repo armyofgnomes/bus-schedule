@@ -1,0 +1,7 @@
+{
+  "name": "bus-schedule",
+  "short_name": "bus-schedule",
+  "description": "Shows the next departing bus time",
+  "start_url": "/",
+  "display": "standalone"
+}

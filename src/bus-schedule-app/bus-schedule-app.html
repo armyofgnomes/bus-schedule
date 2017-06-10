@@ -1,0 +1,27 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bus-schedule/bus-schedule.html">
+
+<dom-module id="bus-schedule-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+        text-align: center;
+      }
+    </style>
+    <h1>Next bus departs at</h1>
+    <bus-schedule></bus-schedule>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class BusScheduleApp extends Polymer.Element {
+      static get is() { return 'bus-schedule-app'; }
+    }
+
+    window.customElements.define(BusScheduleApp.is, BusScheduleApp);
+  </script>
+</dom-module>

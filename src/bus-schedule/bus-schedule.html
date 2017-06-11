@@ -25,6 +25,10 @@
         font-weight: bold;
       }
 
+      li.active:nth-of-type(5) ~ li {
+        display: none;
+      }
+
       li:not(.active) + li.active {
         font-size: larger;
       }

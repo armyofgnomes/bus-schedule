@@ -1,0 +1,40 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../travel-time/travel-time.html">
+
+<dom-module id="travel-time-summary">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      ul {
+        list-style-type: none;
+      }
+    </style>
+    <h2>Time to Port Authority</h2>
+    <ul>
+      <li>
+        <travel-time label="Walking" travel-mode="WALKING"></travel-time>
+      </li>
+      <li>
+        <travel-time label="Transit" travel-mode="TRANSIT"></travel-time>
+      </li>
+      <li>
+        <travel-time label="Taxi" travel-mode="DRIVING"></travel-time>
+      </li>
+    </ul>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class TravelTimeSummary extends Polymer.Element {
+      static get is() { return 'travel-time-summary'; }
+    }
+
+    window.customElements.define(TravelTimeSummary.is, TravelTimeSummary);
+  </script>
+</dom-module>

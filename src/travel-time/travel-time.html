@@ -1,0 +1,84 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/google-map/google-map-directions.html">
+<link rel="import" href="../../bower_components/geo-location/geo-location.html">
+
+<dom-module id="travel-time">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h3>{{label}}</h3>
+    <p>{{travelTime}}</p>
+    <geo-location latitude="{{lat}}" longitude="{{lng}}"></geo-location>
+    <google-map-directions
+      on-response-changed="_handleResponse"
+      api-key="[[apiKey]]"
+      start-address="{{_formatLocation(lat,lng)}}"
+      end-address="[[destination]]"
+      travel-mode="[[travelMode]]"></google-map-directions>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class TravelTime extends Polymer.Element {
+      static get is() { return 'travel-time'; }
+      static get properties() {
+        return {
+          label: {
+            type: String,
+          },
+
+          travelMode: {
+            type: String,
+          },
+
+          lat: {
+            type: Number,
+          },
+
+          lng: {
+            type: Number,
+          },
+
+          travelTime: {
+            type: String,
+          },
+
+          destination: {
+            type: String,
+            value: "Port Authority Bus Terminal, New York, New York",
+          },
+
+          apiKey: {
+            type: String,
+            value: "AIzaSyB1ENJpACX9OMTY1SuNYrufWkQ3mkWKQsw",
+          }
+        };
+      }
+
+      _formatLocation(lat, lng) {
+        return lat + ", " + lng;
+      }
+
+      _routes(event) {
+        return event.detail.value.routes;
+      }
+
+      _duration(routes) {
+        return routes[0].legs[0].duration.text;
+      }
+
+      _handleResponse(event) {
+        let routes = this._routes(event);
+        this.travelTime = this._duration(routes);
+      }
+    }
+
+    window.customElements.define(TravelTime.is, TravelTime);
+  </script>
+</dom-module>

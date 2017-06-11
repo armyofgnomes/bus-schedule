@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/google-map/google-map-directions.html">
 <link rel="import" href="../../bower_components/geo-location/geo-location.html">
 <link rel="import" href="../bus-schedule/bus-schedule.html">
+<link rel="import" href="../travel-time-summary/travel-time-summary.html">
 
 
 <dom-module id="bus-schedule-app">
@@ -11,38 +12,10 @@
         display: block;
         text-align: center;
       }
-
-      ul {
-        list-style-type: none;
-      }
     </style>
     <h1>Next bus departs at</h1>
     <bus-schedule></bus-schedule>
-    <h2>Time to Port Authority</h2>
-    <ul>
-      <li>Walking: {{walkingTravelTime}}</li>
-      <li>Transit: {{transitTravelTime}}</li>
-      <li>Driving: {{drivingTravelTime}}</li>
-    </ul>
-    <geo-location latitude="{{lat}}" longitude="{{lng}}"></geo-location>
-    <google-map-directions
-      on-response-changed="_handleWalkingResponse"
-      api-key="[[apiKey]]"
-      start-address="{{_formatLocation(lat,lng)}}"
-      end-address="[[destination]]"
-      travel-mode="WALKING"></google-map-directions>
-    <google-map-directions
-      on-response-changed="_handleDrivingResponse"
-      api-key="[[apiKey]]"
-      start-address="{{_formatLocation(lat,lng)}}"
-      end-address="[[destination]]"
-      travel-mode="DRIVING"></google-map-directions>
-    <google-map-directions
-      on-response-changed="_handleTransitResponse"
-      api-key="[[apiKey]]"
-      start-address="{{_formatLocation(lat,lng)}}"
-      end-address="[[destination]]"
-      travel-mode="TRANSIT"></google-map-directions>
+    <travel-time-summary></travel-time-summary>
   </template>
 
   <script>
@@ -52,72 +25,6 @@
      */
     class BusScheduleApp extends Polymer.Element {
       static get is() { return 'bus-schedule-app'; }
-      static get properties() {
-        return {
-          lat: {
-            type: Number,
-          },
-
-          lng: {
-            type: Number,
-          },
-
-          walkingTravelTime: {
-            type: String,
-          },
-
-          drivingTravelTime: {
-            type: String,
-          },
-
-          transitTravelTime: {
-            type: String,
-          },
-
-          destination: {
-            type: String,
-            value: "Port Authority Bus Terminal, New York, New York",
-          },
-
-          apiKey: {
-            type: String,
-            value: "AIzaSyB1ENJpACX9OMTY1SuNYrufWkQ3mkWKQsw",
-          }
-        };
-      }
-
-      _formatLocation(lat, lng) {
-        return lat + ", " + lng;
-      }
-
-      _parseResponse(response) {
-        if (response) {
-          return response.routes[0].legs[0].duration.text;
-        }
-      }
-
-      _routes(event) {
-        return event.detail.value.routes;
-      }
-
-      _duration(routes) {
-        return routes[0].legs[0].duration.text;
-      }
-
-      _handleWalkingResponse(event) {
-        let routes = this._routes(event);
-        this.walkingTravelTime = this._duration(routes);
-      }
-
-      _handleDrivingResponse(event) {
-        let routes = this._routes(event);
-        this.drivingTravelTime = this._duration(routes);
-      }
-
-      _handleTransitResponse(event) {
-        let routes = this._routes(event);
-        this.transitTravelTime = this._duration(routes);
-      }
     }
 
     window.customElements.define(BusScheduleApp.is, BusScheduleApp);

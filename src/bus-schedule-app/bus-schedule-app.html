@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/geo-location/geo-location.html">
 <link rel="import" href="../bus-schedule/bus-schedule.html">
 <link rel="import" href="../travel-time-summary/travel-time-summary.html">
+<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 
 
 <dom-module id="bus-schedule-app">
@@ -12,10 +13,25 @@
         display: block;
         text-align: center;
       }
+
+      .departure, .travel-time {
+        color: #000;
+        font-family: "Oswald", sans-serif;
+        text-shadow: 0px 1px 1px #4d4d4d;
+        text-transform: uppercase;
+      }
+
+      .departure {
+        font-size: 3em;
+      }
+
+      .travel-time {
+        font-size: 2em;
+      }
     </style>
-    <h1>Next bus departs at</h1>
+    <h1 class="departure">Next bus departs at</h1>
     <bus-schedule></bus-schedule>
-    <h2>Time to Port Authority</h2>
+    <h2 class="travel-time">Time to Port Authority</h2>
     <travel-time-summary></travel-time-summary>
   </template>
 

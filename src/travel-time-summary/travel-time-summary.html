@@ -9,18 +9,26 @@
       }
 
       ul {
+        align-items: center;
+        display: flex;
+        justify-content: center;
         list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        margin: 0 5px;
       }
     </style>
     <ul>
       <li>
-        <travel-time label="Walking" travel-mode="WALKING"></travel-time>
+        <travel-time icon="maps:directions-walk" travel-mode="WALKING"></travel-time>
       </li>
       <li>
-        <travel-time label="Transit" travel-mode="TRANSIT"></travel-time>
+        <travel-time icon="maps:directions-transit" travel-mode="TRANSIT"></travel-time>
       </li>
       <li>
-        <travel-time label="Taxi" travel-mode="DRIVING"></travel-time>
+        <travel-time icon="maps:directions-car" travel-mode="DRIVING"></travel-time>
       </li>
     </ul>
   </template>
